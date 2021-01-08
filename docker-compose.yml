@@ -7,8 +7,11 @@ services:
       restart: always
       ports:
        - '6603:3306'
+      volumes:
+      - ./db-seeds:/docker-entrypoint-initdb.d
       environment:
         MYSQL_ROOT_PASSWORD: barber
+        MYSQL_DATABASE: bookber
 
    app:
       depends_on:

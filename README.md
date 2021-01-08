@@ -1,5 +1,5 @@
 # dockerSql
-booker sqlserver app with dbseed
+bookber sqlserver app with dbseed
 
 instruction
 
