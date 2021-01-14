@@ -37,9 +37,7 @@ CREATE TABLE IF NOT EXISTS `barbers_registries` (
   `id` int NOT NULL AUTO_INCREMENT,
   `baber_id` int DEFAULT NULL,
   `shop_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `baber_id` (`baber_id`),
-  KEY `shop_id` (`shop_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
@@ -105,12 +103,7 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `venue` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`),
-  KEY `customer_id` (`customer_id`),
-  KEY `baber_id` (`baber_id`),
-  KEY `services_id` (`services_id`),
-  KEY `venue` (`venue`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
@@ -170,10 +163,7 @@ CREATE TABLE IF NOT EXISTS `customer_reviews` (
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `rating` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `customer_id` (`customer_id`),
-  KEY `baber_id` (`baber_id`),
-  KEY `booking_id` (`booking_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -195,9 +185,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `status` int DEFAULT NULL,
   `type` int DEFAULT NULL,
   `message` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`),
-  KEY `type` (`type`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -255,8 +243,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   `price` int DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `shop_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `shop_id` (`shop_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
@@ -289,9 +276,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `role` int DEFAULT NULL,
   `status` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `role` (`role`),
-  KEY `status` (`status`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
@@ -304,7 +289,7 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `phone`, `created_at`, `role`, `status`) VALUES
-(3, 'อยากตัดผม มากกก', 'qazwxx@gmail.com', '099888999', '2021-01-06 12:21:08', 1, 1),
+(3, 'อยากตัดผม มากกกx', 'qazwxx@gmail.com', '099888999', '2021-01-06 12:21:08', 1, 1),
 (4, 'ช่าง สายสอย', 'qazws@gmail.com', '0987776667', '2021-01-06 12:09:57', 2, 1),
 (5, 'เจ๊ เจ้าของร้าน', 'eeedddc@gmail.com', '0988895544', '2021-01-06 05:21:57', 3, 1),
 (6, 'อยากไถหัว รำคาญผม', 'eedddccc@gmail.com', '08898833343', '2021-01-03 12:29:54', 1, 1);
@@ -361,58 +346,6 @@ INSERT INTO `user_type` (`id`, `title`) VALUES
 (1, 'client'),
 (2, 'barber'),
 (3, 'shopowner');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `barbers_registries`
---
-ALTER TABLE `barbers_registries`
-  ADD CONSTRAINT `barbers_registries_ibfk_1` FOREIGN KEY (`baber_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `barbers_registries_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `barber_shops` (`id`);
-
---
--- Constraints for table `bookings`
---
-ALTER TABLE `bookings`
-  ADD CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`status`) REFERENCES `booking_status` (`id`),
-  ADD CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `bookings_ibfk_3` FOREIGN KEY (`baber_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `bookings_ibfk_4` FOREIGN KEY (`services_id`) REFERENCES `services` (`id`),
-  ADD CONSTRAINT `bookings_ibfk_5` FOREIGN KEY (`venue`) REFERENCES `barber_shops` (`id`);
-
---
--- Constraints for table `customer_reviews`
---
-ALTER TABLE `customer_reviews`
-  ADD CONSTRAINT `customer_reviews_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `customer_reviews_ibfk_2` FOREIGN KEY (`baber_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `customer_reviews_ibfk_3` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`);
-
---
--- Constraints for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`id`) REFERENCES `bookings` (`id`),
-  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`status`) REFERENCES `notification_status` (`id`),
-  ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`type`) REFERENCES `notification_types` (`id`);
-
---
--- Constraints for table `services`
---
-ALTER TABLE `services`
-  ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `barber_shops` (`id`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role`) REFERENCES `user_type` (`id`),
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`status`) REFERENCES `user_status` (`id`);
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
